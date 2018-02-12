@@ -1,5 +1,5 @@
 FROM openjdk:8-slim
-MAINTAINER Julian Xhokaxhiu <info at julianxhokaxhiu dot com>
+MAINTAINER Danial Behzadi <danial at belos dot email>
 
 # Environment variables
 #######################
@@ -19,16 +19,19 @@ ENV USE_CCACHE 1
 
 # Environment that controls the CCACHE size
 # suggested: 50G
-ENV CCACHE_SIZE '50G'
+ENV CCACHE_SIZE '100G'
 
 # Environment that compresses objects stored in CCACHE
 # suggested: 1
 # WARNING: While this may involve a tiny performance slowdown, it increases the number of files that fit in the cache.
-ENV CCACHE_COMPRESS 1
+ENV CCACHE_COMPRESS 0
 
-# Environment for the LineageOS Branch name
-# See https://github.com/LineageOS/android_vendor_cm/branches for possible options
-ENV BRANCH_NAME 'cm-14.1'
+# Environment forr the OS URL
+ENV OS_URL 'https://gitlab.com/belos/belos.git'
+
+# Environment for the OS Branch name
+# See https://gitlab.com/belos/android_vendor_belos/branches for possible options
+ENV BRANCH_NAME 'belos-2'
 
 # Environment for the device list ( separate by comma if more than one)
 # eg. DEVICE_LIST=hammerhead,bullhead,angler
@@ -43,8 +46,8 @@ ENV OTA_PROP 'cm.updater.uri'
 ENV OTA_URL ''
 
 # User identity
-ENV USER_NAME 'LineageOS Buildbot'
-ENV USER_MAIL 'lineageos-buildbot@docker.host'
+ENV USER_NAME 'BelOS Builder'
+ENV USER_MAIL 'Build@belos.email'
 
 # If you want to start always fresh ( re-download all the source code everytime ) set this to 'true'
 ENV CLEAN_SRCDIR false
@@ -63,7 +66,7 @@ ENV DEBUG false
 ENV CLEAN_AFTER_BUILD true
 
 # Provide root capabilities builtin inside the ROM ( see http://lineageos.org/Update-and-Build-Prep/ )
-ENV WITH_SU true
+ENV WITH_SU false
 
 # Provide a default JACK configuration in order to avoid out-of-memory issues
 ENV ANDROID_JACK_VM_ARGS "-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
