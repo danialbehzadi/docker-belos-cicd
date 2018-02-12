@@ -1,10 +1,10 @@
-# docker-lineage-cicd
+# docker-belos-cicd
 
-Docker microservice for LineageOS Continuous Integration and Continous Deployment
+Docker microservice for BelOS Continuous Integration and Continous Deployment
 
 ## Why
 
-Because I always believe that even advanced technologies should be available to everyone. This is a tentative to offer everyone the possibility to build his own images of LineageOS, when he wants, how he wants. You don't have to wait anymore for build bots. No more scene drama. Just build and enjoy your favourite Android ROM.
+Because I always believe that even advanced technologies should be available to everyone. This is a tentative to offer everyone the possibility to build his own images of BelOS, when he wants, how he wants. You don't have to wait anymore for build bots. No more scene drama. Just build and enjoy your favourite Android ROM.
 
 ## Why Docker?
 
@@ -38,7 +38,7 @@ You can configure the Docker by passing custom environment variables to it. See 
 ## How to use
 
 ### Simple mode
-build cm14.1 LineageOS for `hammerhead` with default settings
+build BelOS 2 for `hammerhead` with default settings
 ```
 docker run \
     --restart=always \
@@ -49,7 +49,7 @@ docker run \
     -v "/home/user/ccache:/srv/ccache" \
     -v "/home/user/source:/srv/src" \
     -v "/home/user/zips:/srv/zips" \
-    julianxhokaxhiu/docker-lineage-cicd
+    danialbehzadi/docker-belos-cicd
 ```
 
 ### Advanced mode
@@ -60,29 +60,30 @@ docker run \
     -d \
     -e "USER_NAME=John Doe" \
     -e "USER_MAIL=john.doe@awesome.email" \
+    -e "OS_URL=git://github.com/lineageos/android.git"
     -e "BRANCH_NAME=cm-13.0" \
     -e "DEVICE_LIST=hammerhead,bullhead" \
     -v "/home/user/ccache:/srv/ccache" \
     -v "/home/user/source:/srv/src" \
     -v "/home/user/zips:/srv/zips" \
-    julianxhokaxhiu/docker-lineage-cicd
+    danialbehzadi/docker-belos-cicd
 ```
 
 ### Expert mode
-build cm-14.1 LineageOS for a device that doesn't exist inside the main project, but comes from a special manifest ( has to be created inside `/home/user/local_manifests/` ). Finally provide a custom OTA URL for this ROM so users can update using built-in OTA Updater.
+build staging Belos 2 for a device that doesn't exist inside the main project, but comes from a special manifest ( has to be created inside `/home/user/local_manifests/` ). Finally provide a custom OTA URL for this ROM so users can update using built-in OTA Updater.
 ```
 docker run \
     --restart=always \
     -d \
     -e "USER_NAME=John Doe" \
     -e "USER_MAIL=john.doe@awesome.email" \
-    -e "BRANCH_NAME=cm-14.1" \
+    -e "BRANCH_NAME=staging-2" \
     -e "DEVICE_LIST=n80xx" \
     -e "OTA_URL=http://cool.domain/api" \
     -v "/home/user/ccache:/srv/ccache" \
     -v "/home/user/source:/srv/src" \
     -v "/home/user/zips:/srv/zips" \
     -v "/home/user/local_manifests:/srv/local_manifests" \
-    julianxhokaxhiu/docker-lineage-cicd
+    danialbehzadi/docker-belos-cicd
 ```
 **NOTE:** `/home/user/local_manifests/` may contain multiple XMLs, since all the files will be then copied inside `.repo/local_manifests/`
